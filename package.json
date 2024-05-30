@@ -1,0 +1,81 @@
+{
+    "$schema": "./@types/schema/package/index.json",
+    "package_version": 2,
+    "name": "oops-copilot",
+    "version": "1.0.0",
+    "author": "Zoran",
+    "editor": ">=3.8.2",
+    "scripts": {
+        "preinstall": "node ./scripts/preinstall.js",
+        "build": "tsc"
+    },
+    "description": "i18n:oops-copilot.description",
+    "main": "./dist/main.js",
+    "dependencies": {
+        "fs-extra": "^10.0.0",
+        "typescript": "^5.4.5",
+        "vue": "^3.1.4"
+    },
+    "devDependencies": {
+        "@cocos/creator-types": "^3.8.2",
+        "@types/fs-extra": "^9.0.13",
+        "@types/node": "^18.17.1"
+    },
+    "panels": {
+        "default": {
+            "title": "i18n setting",
+            "type": "dockable",
+            "main": "dist/panels/i18nsetting",
+            "size": {
+                "min-width": 400,
+                "min-height": 300,
+                "width": 1024,
+                "height": 600
+            }
+        }
+    },
+    "contributions": {
+        "menu": [
+            {
+                "path": "oops-copilot",
+                "label": "i18n setting",
+                "message": "open-i18n-panel"
+            }
+        ],
+        "project": {
+            "tab1": {
+                "label": "i18n setting",
+                "content": {
+                    "Language Directory": {
+                        "ui": "ui-file",
+                        "attributes": {
+                            "type": "directory",
+                            "protocols": "project"
+                        },
+                        "default": "project://assets/res/language/json"
+                    }
+                }
+            }
+        },
+        "scene": {
+            "script": "./dist/scene.js"
+        },
+        "messages": {
+            "asset-db:asset-change": {
+                "methods": [
+                    "onAssetChange"
+                ]
+            },
+            "open-i18n-panel": {
+                "methods": [
+                    "openI18nPanel"
+                ]
+            },
+            "scene:ready": {
+                "methods": [
+                    "onSceneReady"
+                ]
+            }
+        }
+    }
+}

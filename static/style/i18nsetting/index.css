@@ -1,0 +1,71 @@
+#text {
+    color: var(--color-normal-contrast-weakest);
+    margin: auto;
+    width: 180px;
+}
+
+.counter {
+    text-align: center;
+}
+
+:host {
+    display: flex;
+    padding: 6px;
+    flex-direction: column;
+}
+
+:host .content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    margin-bottom: 6px;
+}
+
+header>ui-button.refresh {
+    float: right;
+}
+
+section {
+    flex: 1;
+    background: var(--color-normal-fill-emphasis);
+    border-radius: calc(var(--size-normal-radius)* 1px);
+    padding: 4px;
+}
+
+section>div {
+    padding: 0 10px;
+}
+
+section>div>.slider {
+    margin-right: 4px;
+}
+
+section>div>.option {
+    float: right;
+    display: none;
+}
+
+section>div>ui-icon {
+    cursor: pointer;
+    color: var(--color-warn-fill-normal);
+}
+
+section>div>ui-icon[value=eye-open] {
+    color: var(--color-success-fill-normal);
+}
+
+section>div>ui-icon[value=del] {
+    color: var(--color-danger-fill-normal);
+}
+
+section>div:hover {
+    background: var(--color-normal-fill);
+    border-radius: calc(var(--size-normal-radius)* 1px);
+}
+
+section>div:hover>.option {
+    display: inline;
+}

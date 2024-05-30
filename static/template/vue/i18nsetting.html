@@ -1,0 +1,23 @@
+<div class="i18nsetting">
+
+    <header>
+        <ui-button class="transparent add" @confirm="add()">
+            <ui-icon value="add"></ui-icon>
+        </ui-button>
+        <ui-button class="transparent refresh" @confirm="refresh()">
+            <ui-icon value="refresh"></ui-icon>
+        </ui-button>
+    </header>
+    <section>
+        <div v-for="item of list">
+            <ui-icon value="eye-open" v-if="item === lang"></ui-icon>
+            <ui-icon value="eye-close" v-else @click="select(item)"></ui-icon>
+            <span>{{item}}</span>
+            <ui-icon class="option" value="del" @click="del(item)"></ui-icon>
+        </div>
+
+        <div v-if="showAddInput">
+            <ui-input ref="addInput" @confirm="generateLanguageFile($event)"></ui-input>
+        </div>
+    </section>
+</div>
