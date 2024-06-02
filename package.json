@@ -35,6 +35,12 @@
         }
     },
     "contributions": {
+        "asset-db": {
+            "mount": {
+                "path": "./assets",
+                "readonly": false
+            }
+        },
         "menu": [
             {
                 "path": "oops-copilot",

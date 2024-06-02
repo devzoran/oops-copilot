@@ -6,6 +6,13 @@
         "types": [
             "node",
             "@cocos/creator-types/editor",
+            "../../temp/declarations/cc.custom-macro",
+            "../../temp/declarations/cc",
+            "../../temp/declarations/jsb",
+            "../../temp/declarations/cc.env",
         ]
-    }
+    },
+    "exclude": [
+        "assets/**/*"
+    ]
 }
