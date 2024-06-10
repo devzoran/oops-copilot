@@ -1,0 +1,25 @@
+/**
+ * @file UIConfig.ts
+ * @author zoran
+ * @date 2024-06-07
+ * @description 自动化生成，请勿手动修改！
+ */
+
+import { LayerType, UIConfig } from "../../../../../extensions/oops-plugin-framework/assets/core/gui/layer/LayerManager";
+
+/** 界面唯一标识（方便服务器通过编号数据触发界面打开） */
+export enum UIID {
+    {{#items}}
+    {{#desc}}
+    /** {{desc}} */
+    {{/desc}}
+    {{id}},
+    {{/items}}
+}
+
+/** 打开界面方式的配置数据 */
+export var UIConfigData: { [key: number]: UIConfig } = {
+    {{#items}}
+    [UIID.{{id}}]: { layer: LayerType.{{layer}}, prefab: '{{{prefab}}}' },
+    {{/items}}
+}

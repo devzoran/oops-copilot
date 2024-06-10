@@ -22,5 +22,5 @@ export const methods = {
         win.languageManager.setLanguage(currentLanguage);
         // @ts-ignore
         cce.Engine.repaintInEditMode();
-    }
+    },
 }
