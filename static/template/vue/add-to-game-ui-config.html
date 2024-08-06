@@ -1,0 +1,40 @@
+<div class="add-to-game-ui-config">
+    <div class="layer-margin">
+        <ul>
+            <li>· 选中 Assets inspector 下对应想要更新或者导出的 prefab 文件</li>
+            <li>· 当前 Panel 中选择"界面层类型"，默认为Game</li>
+            <li>· 填写当前界面的注释，只有填了才会生成或者覆盖注释</li>
+            <li>· 点击 generate 按钮，生成后处理代码文本到 GameUIConfig.ts</li>
+        </ul>
+
+        <span>界面层类型</span>
+        <ui-select value="0" @change="onSelectItemChange($event.target.value)" class="spacing-bottom">
+            <option v-for="item of layerTypes" :value="item.value" @change="setSelectedItem(item.value)">
+                {{item.label}}
+            </option>
+        </ui-select>
+
+        <span>打开界面动画</span>
+        <ui-select value="0" @change="onSelectUIOpenAnimChange($event.target.value)" class="spacing-bottom">
+            <option v-for="item of animationTypes" :value="item.value" @change="setSelectedItem(item.value)">
+                {{item.label}}
+            </option>
+        </ui-select>
+
+        <span>关闭界面动画</span>
+        <ui-select value="0" @change="onSelectUICloseAnimChange($event.target.value)" class="spacing-bottom">
+            <option v-for="item of animationTypes" :value="item.value" @change="setSelectedItem(item.value)">
+                {{item.label}}
+            </option>
+        </ui-select>
+
+        <ui-input v-model="bundle" placeholder="所属的bundle名，不填默认在'bundle'下" class="spacing-bottom" />
+
+        <ui-input v-model="uiComment" placeholder="输入界面注释，不加默认没有"></ui-input>
+
+        <!-- <ui-textarea readonly v-model="diffPreview" class="textarea-config"/> -->
+
+        <ui-button @confirm="generate()" class="button-generate">generate</ui-button>
+    </div>
+
+</div>

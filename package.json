@@ -5,11 +5,11 @@
     "version": "1.0.0",
     "author": "Zoran",
     "editor": ">=3.8.2",
+    "description": "i18n:oops-copilot.description",
     "scripts": {
         "preinstall": "node ./scripts/preinstall.js",
         "build": "tsc"
     },
-    "description": "i18n:oops-copilot.description",
     "main": "./dist/main.js",
     "devDependencies": {
         "@cocos/creator-types": "^3.8.2",
@@ -32,6 +32,15 @@
                 "width": 1024,
                 "height": 600
             }
+        },
+        "add-to-game-ui-config": {
+            "title": "导出GameUIConfig",
+            "type": "simple",
+            "main": "dist/panels/addtogameuiconfig",
+            "size": {
+                "width": 995,
+                "height": 520
+            }
         }
     },
     "contributions": {
@@ -45,12 +54,7 @@
             {
                 "path": "oops-copilot",
                 "label": "i18n setting",
-                "message": "open-i18n-panel"
-            },
-            {
-                "path": "oops-copilot",
-                "label": "generate GameUIConfig",
-                "message": "generate-game-ui-config"
+                "message": "open-panel"
             }
         ],
         "project": {
@@ -63,9 +67,24 @@
                             "type": "directory",
                             "protocols": "project"
                         },
-                        "default": "project://assets/res/language/json"
+                        "default": "project://assets/resources/language/json"
                     }
                 }
+            }
+        },
+        "assets": {
+            "menu": {
+                "methods": "./dist/assets-menu.js",
+                "createMenu": "onCreateMenu",
+                "assetMenu": "onAssetMenu",
+                "dbMenu": "onDBMenu",
+                "panelMenu": "onPanelMenu"
+            }
+        },
+        "hierarchy": {
+            "menu": {
+                "methods": "./dist/node-path-plugin.js",
+                "nodeMenu": "onNodeMenu"
             }
         },
         "scene": {
@@ -74,12 +93,12 @@
         "messages": {
             "asset-db:asset-change": {
                 "methods": [
-                    "onAssetChange"
+                    "onAssetWatcher"
                 ]
             },
-            "open-i18n-panel": {
+            "open-panel": {
                 "methods": [
-                    "openI18nPanel"
+                    "openPanel"
                 ]
             },
             "generate-game-ui-config": {

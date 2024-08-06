@@ -1,12 +1,10 @@
-import { join } from 'path';
 import { existsSync, readFileSync, readdirSync } from 'fs';
-import { createApp, App } from 'vue';
+import { join } from 'path';
+import { App, createApp } from 'vue';
 // @ts-ignore
 import packageJSON from '../../../package.json';
 const panelDataMap = new WeakMap<any, App>();
-/**
- * 插件配置
- */
+
 let config: any;
 /**
  * @zh 如果希望兼容 3.3 之前的版本可以使用下方的代码
@@ -22,10 +20,11 @@ module.exports = Editor.Panel.define({
     style: readFileSync(join(__dirname, '../../../static/style/i18nsetting/index.css'), 'utf-8'),
     $: {
         app: '#app',
+        // text: '#text',
     },
     methods: {
         hello() {
-        }
+        },
     },
     ready() {
         if (this.$.app) {
@@ -40,24 +39,29 @@ module.exports = Editor.Panel.define({
                         list: [],
                         showAddInput: false,
                     };
-                }, watch: {
+                }, 
+                watch: {
                     async lang() {
-                        await Editor.Profile.setProject(packageJSON.name, 'Current Language', this.lang);
+                        // console.log('item change current language:', this.lang);
+                        await Editor.Profile.setProject(packageJSON.name, "Current Language", this.lang);
                         Editor.Message.send('scene', 'execute-scene-script', {
                             name: packageJSON.name,
-                            method: 'refreshLanguage',
-                            args: []
+                            method: 'setCurrentLanguage',
+                            args: [],
                         });
                     },
-                }, methods: {
+                }, 
+                methods: {
                     add() {
                         this.showAddInput = true;
                         requestAnimationFrame(() => {
                             this.$refs.addInput.focus();
                         });
+                        // console.log('add');
                     },
                     select(language: string) {
                         this.lang = language;
+                        // console.log('select', language);
                     },
                     async del(name: string) {
                         const result = await Editor.Dialog.info(`确定删除 ${name} 语言文件？`, {
@@ -66,6 +70,7 @@ module.exports = Editor.Panel.define({
                             cancel: 1,
                         });
                         if (result.response === 0) {
+                            console.log('del', name);
                             await Editor.Message.request('asset-db', 'delete-asset', `db://${this.path}/${name}.json`);
                             this.refresh();
                         }
@@ -73,15 +78,14 @@ module.exports = Editor.Panel.define({
                     async refresh() {
                         if (this.path === '') {
                             config = await Editor.Profile.getProject(packageJSON.name);
-                            this.path = config['Language Directory'].replace('project://', '');
+                            this.path = config['Language Directory'].replace("project://", "");
                         }
-                        
                         const dir = join(Editor.Project.path, `${this.path}`);
                         if (!existsSync(dir)) {
                             console.warn(`路径不存在: ${dir}`);
                             return;
                         }
-                        this.lang = config['Current Language'] || 'zh';
+                        this.lang = config["Current Language"] || 'zh';
                         const names = readdirSync(dir);
                         this.list = [];
                         names.forEach((name) => {
@@ -90,6 +94,7 @@ module.exports = Editor.Panel.define({
                                 this.list.push(language);
                             }
                         });
+                        // console.log('refresh');
                     },
                     async generateLanguageFile(event: Event) {
                         //@ts-ignore
@@ -104,8 +109,14 @@ module.exports = Editor.Panel.define({
 
                         await Editor.Message.request('asset-db', 'create-asset', `db://${this.path}/${language}.json`, `{}`);
                         this.refresh();
-                    }
-                }, mounted() {
+                        // console.log('generateLanguageFile');
+                    },
+                    changeLang() {
+                        // this.lang = this.lang === 'zh' ? 'en' : 'zh';
+                    },
+                },
+                async mounted() {
+                    console.log('[i18n setting panel] mounted to refresh');
                     this.refresh();
                 },
             });

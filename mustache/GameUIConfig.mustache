@@ -1,25 +1,27 @@
 /**
- * @file UIConfig.ts
- * @author zoran
- * @date 2024-06-07
+ * @file GameUIConfig.ts
+ * @author AutoTS
  * @description 自动化生成，请勿手动修改！
  */
 
-import { LayerType, UIConfig } from "../../../../../extensions/oops-plugin-framework/assets/core/gui/layer/LayerManager";
+import { LayerType, UIAnimationType, UIConfig } from "../../../../../extensions/oops-plugin-framework/assets/core/gui/layer/LayerManager";
 
 /** 界面唯一标识（方便服务器通过编号数据触发界面打开） */
 export enum UIID {
-    {{#items}}
-    {{#desc}}
-    /** {{desc}} */
-    {{/desc}}
-    {{id}},
-    {{/items}}
+    {{#uiids}}
+    {{#comment}}
+    /** {{comment}} */
+    {{/comment}}
+    {{name}},
+    {{/uiids}}
 }
 
 /** 打开界面方式的配置数据 */
-export var UIConfigData: { [key: number]: UIConfig } = {
-    {{#items}}
-    [UIID.{{id}}]: { layer: LayerType.{{layer}}, prefab: '{{{prefab}}}' },
-    {{/items}}
+export const UIConfigData: { [key: number]: UIConfig } = {
+    {{#uiconfigs}}
+    {{#comment}}
+    /** {{comment}} */
+    {{/comment}}
+    {{name}}: { layer: {{layer}}, prefab: {{{prefab}}}{{#bundle}}, bundle: {{{bundle}}}{{/bundle}}{{#showAnim}}, showAnim: {{{showAnim}}}{{/showAnim}}{{#hideAnim}}, hideAnim: {{{hideAnim}}}{{/hideAnim}} },
+    {{/uiconfigs}}
 }

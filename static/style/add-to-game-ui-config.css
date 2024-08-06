@@ -1,0 +1,51 @@
+#text {
+    color: var(--color-normal-contrast-weakest);
+    margin: auto;
+    width: 180px;
+}
+
+.layer-margin {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.spacing-bottom {
+    margin-bottom: 15px;
+}
+
+.textarea-config {
+    width: 100%;
+    height: 200px;
+    resize: inherit;
+}
+
+.button-generate {
+    margin-top: 15px;
+    width: 100%;
+    height: 30px;
+    float: right;
+}
+
+ul {
+    /* 1px宽的实线边框，颜色为黑色 */
+    border: 1px solid rgb(255, 255, 255);
+    /* 内边距，让列表项与边框保持一定距离 */
+    padding: 10px;
+    /* 移除默认的列表项标记 */
+    list-style-type: none;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+li {
+    /* 列表项文本颜色 */
+    color: rgb(243, 207, 3);
+    /* 列表项文本大小 */
+    font-size: 12px;
+}
+
+ui-select {
+    width: 100%;
+}
