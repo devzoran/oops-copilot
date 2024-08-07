@@ -204,11 +204,10 @@ export function getLayerType(): Map<number, string> | undefined {
     function visit(node: ts.Node) {
         if (ts.isEnumDeclaration(node) && node.name.text === 'LayerType') {
             // console.log('Found LayerType enum:');
-            let i = 0;
             node.members.forEach(member => {
-                // console.log(`->>> ${member.initializer}`);
+                // console.log(`- ${member.name.getText()}`);
                 recordLayerType.set(
-                    i++,
+                    member.initializer ? Number(member.initializer.getText()) : 0,
                     member.name.getText()
                 );
             });
